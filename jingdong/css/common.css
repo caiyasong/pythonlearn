@@ -1,0 +1,237 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
+a:link {
+	font-size: 12px;
+	color: #999;
+}
+a:hover {
+	color: #f10215;
+}
+
+/* 导航条开始 */
+.nav {
+	height: 30px;
+	width: 84%;
+	padding: 0 8%;
+	background-color: lightgray;
+}
+.search .logo {
+	float: left;
+	width: 190px;
+	height: 200px;
+	background-image: url(../img/logo.gif);
+	background-size: 190px 200px;
+	margin-left: 150px;
+}
+.nav .point {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	color: #999;
+	padding-left: 20px;
+}
+.nav ul {
+	float: right;
+	list-style-type: none;
+	line-height: 12px;
+	padding-top: 8px;
+}
+.nav ul li {
+	float: left;
+	padding: 0 12px;
+}
+.nav ul li[class="spacer"] {
+	width: 1px;
+	background-color: #999;
+	height: 9px;
+	padding: 0;
+	margin-top: 3px;
+}
+#reg, #qiye, #kaixue, #miaosha, #youhuiquan{
+	color: #f10215;
+}
+.nav img {
+	vertical-align: middle;
+}
+/* 导航条结束 */
+
+/* 搜索开始 */
+.search {
+	height: 200px;
+	background-color: white;
+}
+.search .biao1 {
+	float: left;
+	position: relative;
+	top: 10px;
+	margin-left: 150px;
+	padding: 0.625rem;
+	list-style-type: none;
+	
+}
+.search .biao1 li {
+	float: left;
+	padding: 0.625rem;
+}
+.search .sousuo {
+	border-color: #FF0000;
+}
+.search .sousuo form {
+	float: left;
+}
+
+.search .sousuo form .jingzi {
+	float: right;
+}
+.search .sousuo form .sousuotiao {
+	position: relative;
+	top: 40px;
+	margin-left: 170px;
+	border: 2px solid red;
+	height: 35px;
+	padding-left: 15px;
+	
+}
+.search .sousuo form .jingzi {
+	height: 50px;
+	width: 50px;
+	position: relative;
+	top: 35px;
+}
+.search .biao2 {
+	float: left;
+	position: relative;
+	top: 40px;
+	margin-left: 100px;
+	list-style-type: none;
+	
+}
+.search .biao2 li {
+	float: left;
+	padding: 0.7rem;
+	
+}
+.search .biao2 li a {
+	font-size: 15px;
+	font-weight: 600;
+}
+
+/* 搜索结束 */
+
+/* 主题开始 */
+.zhuti {
+	height: 480px;
+	background-color: white;
+	padding: 10px;
+}
+.zhuti .zhuti_left {
+	float: left;
+	width: 200px;
+	height: 480px;
+	background: white;
+	margin-left: 120px;
+}
+.zhuti .zhuti_left ul {
+	margin: 15px;
+	position: relative;
+	top: 10px;
+}
+.zhuti .zhuti_left ul li {
+	list-style-type: none;
+	padding: 2px;
+}
+.zhuti .zhuti_left ul li a {
+	font-weight: 500;
+	font-size: 0.9375rem;
+}
+.zhuti .zhuti_center {
+	width: 600px;
+	height: 480px;
+	float: left;
+	/* background: red; */
+	background-image: url(../img/timg.jpg);
+	background-size: 600px 480px;
+	margin: 0px 10px;
+}
+.zhuti .zhuti_right {
+	height: 480px;
+	width: 350px;
+	background: white;
+	float: left;
+}
+.zhuti .zhuti_right .right_left {
+	float: left;
+}
+.zhuti .zhuti_right .right_left form input {
+	height: 150px;
+	width: 150px;
+	margin-bottom: 10px;
+}
+.zhuti .zhuti_right .right_right {
+	width: 100px;
+	height: 480px;
+	border: #999999;
+	float: left;
+}
+.zhuti .zhuti_right .right_right input {
+	width: 180px;
+	height: 480px;
+	margin-left: 10px;
+}
+.ddd {
+	height: 420px;
+	background: white;
+	
+}
+.ddd form {
+	text-align: center;
+}
+.ddd form input {
+	height: 200px;
+	width: 200px;
+	padding-left: 50px;
+} 
+
+
+.down {
+	height: 300px;
+	background: palegreen;
+}
+.tupian {
+				position: relative;
+			}
+.tupian .dian1 {
+				display: none;
+				margin-left: 200px;
+				
+			}
+.tupian img {
+				display: none;
+				margin-left: 30px;
+				float: left;
+			}
+.tupian:hover img {
+				display: block;
+			}
+.tupian .dian {
+				text-align: center;
+				margin: 0 auto;
+				font-family: 楷体;
+				font-weight: 600;
+				font-size: 30px;
+			}
+/* .dian dian:hover {
+	display: block;
+}
+
+/* .zhuti .zhuti_center img {
+	height: 480px;
+	widows: 100px;
+} */
+/* 主题结束 */
