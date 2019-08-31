@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div {
+				width: 100px;
+				height: 100px;
+				background-color:  cornflowerblue;
+				text-align: center;
+				line-height: 100px;
+				border-radius: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="xiaoqiu"></div>
+	</body>
+	<script>
+		//设置步长
+		var xSpeed = 3
+		var ySpeed = 3
+		//获取元素的尺寸
+		var xiaoqiu = document.getElementById("xiaoqiu")
+		//获取小球的宽度和高度
+		var width = parseInt(getComputedStyle(xiaoqiu).width)
+		var height = parseInt(getComputedStyle(xiaoqiu).height)
+		//设置周期定时器
+		var timer = setInterval(function() {
+			//获取当前小球的位置
+			var left = parseInt(getComputedStyle(xiaoqiu).left)
+			var top = parseInt(getComputedStyle(xiaoqiu).top)
+			//小球当前位置加上步长
+			left += xSpeed
+			top  += ySpeed
+			//页面边界的判断和碰到边界后反方向弹
+			if (left <= 0 || left+width >= window.innerWidth) {
+				xSpeed *= -1
+			}
+			if (top <= 0|| top+height >= window.innerHeight) {
+				ySpeed *= -1
+			}
+			//小球移动步长
+			xiaoqiu.style.left = left + "px"
+			xiaoqiu.style.top = top + "px"
+			//15是周期时间
+		}, 15)
+	</script>
+</html>
