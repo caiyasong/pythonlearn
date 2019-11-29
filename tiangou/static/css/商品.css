@@ -1,0 +1,646 @@
+#sale{
+		     	height: 387px;
+		     	width: 1200px;
+		     	margin: 0 auto;
+		     	background: white;
+		     }
+		     #sale_top{
+		     	width: 1180px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #sale_top h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     }
+		     #sale_top h1 span{
+		     	color: #ccc;
+		     }
+		     #sale_bottom{
+		     	width: 1180px;
+		     	height: 322px;
+		     	position: relative;
+		     	padding-top: 10px;
+		     	margin-left: 10px;
+		     }
+		     #sale_bottom{
+		     	float: left;
+		     }
+		     #numerical{
+		     	width: 1200px;
+		     	height: 546px;
+		     	background: white;
+		     	margin: 15px auto;
+		     	
+		     }
+		     #numerical_top{
+		     	width: 1180px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #numerical_top h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     	float: left;
+		     }
+		     
+		    #numerical_top h1 span{
+		     	margin-left: 10px;
+		     	color: #ccc;
+		     }
+		     #numerical_top_a{
+		     	width: 380px;
+		     	height: 18px;
+		     	float: right;
+		     }
+		     #numerical_top_a span{
+		     	width: 70px;
+		     	height: 18px;
+		     	display: inline-block;
+		     	border-right: 1px solid #888888;
+		     	
+		     	text-align: center;
+		     	line-height: 18px;
+		     }
+		     #numerical_top_a span a,#box_top_a span a,#left_t_a span a,#right_t_a span a,#clothes_top_a span a{
+		     	color:#888888;
+		     }
+		     #numerical_top_a span a:hover{
+		     	color: red;
+		     }
+		     #numerical_bottom{
+		     	width: 1180px;
+		     	height:482px ;
+		     	margin-top: 10px;
+		     	margin-left: 10px;
+		     }
+		     
+		     
+		     #bigImg{
+		     	float: left;
+		     	width: 270px;
+		     	height: 480px;
+		     	
+		     	position: relative;
+		     }
+		     #bigImg a{
+		     	display: block;
+		     	height:480px ;
+		     	position: absolute;
+		     	left: 0;
+		     	top:0;
+		     }
+		     
+		     
+		     #phone_list{
+		     	float: right;
+		     	width: 895px;
+		     	height: 482px;
+		     	
+		     }
+		    #phone_list ul{
+		    	width: 895px;
+		    }
+		    #phone_list ul li{
+		    	float: left;
+		    	width: 158px;
+		    	height: 235px;
+		    	padding: 0 10px 0 10px;
+		    	border-bottom: solid 1px #E1E1E1;
+		    	border-right:solid 1px #E1E1E1 ;
+		    	text-align: center;
+		    }
+		    #phone_list ul li a{
+		    	display: inline-block;
+		    }
+		    #phone_list ul li img{
+		    	width: 150px;
+		    	height: 160px;
+		    }
+		    #phone_list ul li p{
+		    	width: 150px;
+		    	word-break: break-all;
+		    	height: 38px;
+		    	overflow: hidden;
+		    	margin-top: 8px;
+		    	line-height: 20px;
+		    }
+		    #phone_list ul li b{
+		    	display: block;
+		    	font-family: georgia;
+		    	color:#CF0F4C;
+		    	padding-top: 5px;
+		    	font-weight: bold;
+		    }
+		     #box{
+		     	width: 1200px;
+		     	height: 545px;
+		     	background: white;
+		     	margin: 0 auto;
+		     }
+		     #box_top{
+		     	width: 1180px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #box_top h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     	float: left;
+		     }
+		     #box_top h1 span{
+		     	margin-left: 10px;
+		     	color: #ccc;
+		     }
+		     #box_top_a{
+		     	width: 380px;
+		     	height: 18px;
+		     	float: right;
+		     }
+		     #box_top_a span{
+		     	width: 70px;
+		     	height: 18px;
+		     	display: inline-block;
+		     	border-right: 1px solid #888888;
+		     	text-align: center;
+		     	line-height: 18px;
+		     }
+		     
+		     
+		      #box_top_a span a:hover{
+		     	color: red;
+		     	}
+		     #box_bottom{
+		     	
+		     	width: 270px;
+		     	height:480px ;
+		     	margin-top:5px;
+		     	overflow: hidden;
+              	position: relative;	 
+              	margin-left: 10px;   
+		     }
+		     #box_bottom a{
+		     	position: absolute;
+		     	top: 0;
+		     	left: 0;
+		     }
+		     #BigImg{
+		     	width: 1200px;
+		     	height: 80px;
+		     	margin: 0 auto;
+		     	margin-top: 15px;
+		     	margin-bottom: 10px;
+		     	background: url(/static/img/zmgd888_falsh38.jpg) center;
+		     }
+		     #work{
+		     	height: 470px;
+		     	width: 1200px;
+		     	margin: 0 auto;
+		     }
+		     #work_left{
+		     	height: 240px;
+		     	width: 590px;
+		     	background: white;
+		     	float: left;
+		     }
+		     #left_t,#right_t{
+		     	width: 560px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #left_t h1,#right_t h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     	float: left;
+		     }
+		     #left_t h1 span,#right_t h1 span{
+		     	margin-left: 10px;
+		     	color: #ccc;
+		     }
+		     #left_t_a,#right_t_a{
+		     	width: 300px;
+		     	height: 18px;
+		     	float: right;
+		     }
+		     #left_t_a span,#right_t_a span{
+		     	width: 70px;
+		     	height: 18px;
+		     	display: inline-block;
+		     	
+		     	color:#888888;
+		     	text-align: center;
+		     	line-height: 18px;
+		     }
+		     #left_t_a span a:hover{
+		     	color: red;
+		     }
+		     #left_b{
+		     	width: 560px;
+		     	height: 150px;
+		     	margin-top: 10px;
+		     	margin-left: 10px;
+		     	position: relative;
+		     	overflow: hidden;
+		     }
+		     #left_b a{
+		     	height: 150px;
+		     	position: absolute;
+		     	left: 0;
+		     	top:0;
+		     	
+		     }
+		     
+		    
+		     	
+		     #work_right{
+		     	height: 470px;
+		     	width: 590px;
+		     	background: white;
+		     	float: right;
+		     }
+		     #right_t_a span a:hover{
+		     	color: red;
+		     }
+		     #right_b{
+		     	height: 400px;
+		     	width: 560px;
+		     	margin-left: 10px;
+		     	margin-top: 10px;
+		     }
+		     #right_b_img{
+		     	width: 560px;
+		     	height: 150px;
+		     	position: relative;
+		     	overflow: hidden;
+		     }
+		     #right_b_img a{
+		     	height: 150px;
+		     	position: absolute;
+		     	left: 0;
+		     	top:0;
+		     }
+		     #right_b_con{
+		     	height: 230px;
+		     	width: 560px;
+		     	margin-top: 10px;
+		     }
+		     #right_b_con dl{
+		     	float: left;
+		     	width:180px ;
+		     	height: 240px;
+		     	text-align: center;
+		     	border-bottom: 1px solid #ccc;
+		     	border-right: 1px solid #ccc;
+		     }	
+		     #right_b_con dl dd{
+		     	margin-top: 10px;
+		     }
+		     #right_b_con dl dd span{
+		     	color: #CF0F4C;
+		     	font-family: georgia;
+		     }	
+		     
+		     
+		     #clothes{
+		     	width: 1200px;
+		     	height: 546px;
+		     	background: white;
+		     	margin: 15px auto;
+		     	
+		     }
+		     #clothes_top{
+		     	width: 1180px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #clothes_top h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     	float: left;
+		     }
+		     
+		    #clothes_top h1 span{
+		     	margin-left: 10px;
+		     	color: #ccc;
+		     }
+		     #clothes_top_a{
+		     	width: 623px;
+		     	height: 18px;
+		     	float: right;
+		     }
+		     #clothes_top_a span{
+		     	width: 48px;
+		     	height: 18px;
+		     	display: inline-block;
+		     	border-right: 1px solid #888888;
+		     	
+		     	text-align: center;
+		     	line-height: 18px;
+		     }
+		     
+		     #clothes_top_a span a:hover{
+		     	color: red;
+		     }
+		     #clothes_bottom{
+		     	width: 1180px;
+		     	height:482px ;
+		     	margin-top: 10px;
+		     	margin-left: 10px;
+		     }
+		     #bottom_left{
+		     	float: left;
+		     	width: 270px;
+		     	height: 480px;
+		     	overflow: hidden;
+		     	position: relative;
+		     	
+		     }
+		     #bottom_left a{
+		     	position: absolute;
+		     	left: 0;
+		     	top: 0;
+		     }
+		     #clothes_list{
+		     	float: right;
+		     	width: 875px;
+		     	height: 482px;
+		     	
+		     }
+		     #clothes_list dl{
+		     	float: left;
+		     	width: 172px;
+		     	height: 245px;
+		     	text-align: center;
+		     	border-right: 1px solid #e1e1e1;
+		     	border-bottom:1px solid #e1e1e1 ;
+		     }
+		     #clothes_list dd{
+		     	margin-top: 15px;
+		     }
+		     #clothes_list dd span{
+		     	color: #CF0F4C;
+		     	font-family: georgia;
+		     	font-weight: bold;
+		     }
+		     
+		     
+		     #dress{
+		     	width: 1200px;
+		     	height: 546px;
+		     	background: white;
+		     	margin: 15px auto;
+		     	
+		     }
+		     #dress_top{
+		     	width: 1180px;
+		     	height: 35px;
+		     	border-bottom: 1px solid #731726;
+		     	padding-top: 10px;
+		     	margin: 0 10px;
+		     	line-height: 35px;
+		     }
+		     #dress_top h1{
+		     	width: 237px;
+		     	height: 35px;
+		     	font-size: 16px;
+		     	border-bottom: 3px solid #731726;
+		     	float: left;
+		     }
+		     
+		   #dress_top h1 span{
+		     	margin-left: 10px;
+		     	color: #ccc;
+		     }
+		     #dress_top_a{
+		     	width: 535px;
+		     	height: 18px;
+		     	float: right;
+		     }
+		     #dress_top_a span{
+		     	width: 70px;
+		     	height: 18px;
+		     	display: inline-block;
+		     	border-right: 1px solid #888888;
+		     	
+		     	text-align: center;
+		     	line-height: 18px;
+		     }
+		     
+		     #dress_top_a span a:hover{
+		     	color: red;
+		     }
+		     #dress_bottom{
+		     	width: 1180px;
+		     	height:482px ;
+		     	margin-top: 10px;
+		     	margin-left: 10px;
+		     }
+		     #dressImg{
+		     	float: left;
+		     	width: 270px;
+		     	height: 480px;
+		     	overflow: hidden;
+		     	position: relative;
+		     }
+		      #dressImg a{
+		      	position: absolute;
+		      	top: 0;
+		      	left: 0;
+		      }
+		     #dress_list{
+		     	float: right;
+		     	width: 875px;
+		     	height: 482px;
+		     	
+		     }
+		     #dress_list dl{
+		     	float: left;
+		     	width: 172px;
+		     	height: 245px;
+		     	text-align: center;
+		     	border-right: 1px solid #e1e1e1;
+		     	border-bottom:1px solid #e1e1e1 ;
+		     }
+		     #dress_list dd{
+		     	margin-top: 15px;
+		     }
+		     #dress_list dd span{
+		     	color: #CF0F4C;
+		     	font-weight: bold;
+		     	font-family: georgia;
+		     }
+		     #showImg{
+		     	width: 1200px;
+		     	height: 80px;
+		     	margin: 0 auto;
+		     	margin-top: 15px;
+		     	margin-bottom: 10px;
+		     	background: url(/static/img/zmgd888_falsh39.jpg) center;
+		     }
+		     
+		     
+		     #host{
+		     	width: 1200px;
+		     	height: 400px;
+		     	background: white;
+		     	margin: 0 auto;
+		     	margin-bottom: 15px;
+		     }
+		     #host h2{
+		     	font-size: 20px;
+		     	text-align: center;
+		     	height: 40px;
+		     	line-height: 40px;
+		     }
+		     #host_list{
+		     width: 1180px;
+		     margin-left: 10px;
+		     }
+		     #host_list li{
+		     	float: left;
+                width: 110px;
+                height: 170px;
+                border: 1px solid #E1E1E1; 
+                background: #fff; 
+                display: inline;
+                margin: 0 3px;
+                overflow: hidden;
+                text-align: center;
+		     }
+		      #host_list li h3{
+		      	padding-top: 20px;
+		      }
+		       #host_list li h3 a{
+		       	display: block;
+		       	width: 74px;
+		       	height: 25px;
+		       	padding-top: 30px;
+		       	font-size: 14px;
+		       	color:#b10000;
+		       }
+		       #host_list li p{
+		       	width: 96px;
+		       	overflow: hidden;
+		       	margin-top: 8px;
+		       }
+		        #host_list li p a{
+		        	display: inline-block;
+		        	white-space: nowrap;
+		        	margin: 0 3px;
+		        	color: #9E9E9F;
+		        	line-height: 20px;
+		        }
+		       
+		       #footerbg{
+		       	width: 1200px;
+		       	margin: 15px auto 0 auto;
+		       	clear: both;
+		       	background: white;
+		       	padding-top: 5px;
+		       	
+		       }
+		       #friendlik{
+		       	margin: 10px;
+		       	padding: 0 10px 0 10px;
+		       	line-height: 40px;
+		       	border: 1px solid #cccccc;
+		       }
+		        #friendlik a{
+		        	padding-left: 13px;
+		        }
+		        
+		        #con{
+		        	padding: 10px;
+		        	width: 1180px;
+		        	height: 193px;
+		        	margin: auto;
+		        }
+		        #con_left{
+		        	width: 240px;
+		        	float: left;
+		        	height: 193px;
+		        	background: #f8f8f8;
+		        }
+		        #con_left ul{
+		        	margin: 20px 0 0 40px;
+		        }
+		        #con_left ul li{
+		        	padding-bottom: 5px;
+		        	line-height: 22px;
+		        	padding-left: 0;
+		        	width: 164px;
+		        	color: #999;
+		        	font-size: 12px;
+		        	padding-top: 8px;
+		        }
+		        #pong{
+		        	font: bold 20px/35px arial helvetica sans-serif;
+		        	color: #c40000;
+		        	display: block;
+		        }
+		        #con_right{
+		        	width: 920px;
+		        	background: #f8f8f8;
+		        	float: left;
+		        	height: 178px;
+		        	margin-left: 10px;
+		        	padding-top: 15px;
+		        }
+		        #boottom_help{
+		        	
+		        }
+		        #con_right ul{
+		        	float: left;
+		        	width: 100px;
+		        	padding-top: 10px;
+		        	padding-left: 45px;
+		        }
+		        #con_right ul li{
+		        	line-height: 28px;
+		        	width: 80px;
+		        }
+		        #con_right ul li img{
+		        	float: left;
+		        }
+		        #con_right ul li.mar{
+		        	margin-left: 10px;
+		        }
+		        
+		        
+		        
+		        #footer{
+		        	height: 80px;
+		        	background: white;
+		        	line-height: 20px;
+		        	width: 1200px;
+		        	margin: 0 auto;
+		        	text-align: center;
+		        	padding-top: 15px;
+		        	margin-bottom: 15px;
+		        }

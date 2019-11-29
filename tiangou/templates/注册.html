@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/css/注册.css"/>
+		<script src="/static/js/jquery-3.1.0.js"></script>
+		<script src="/static/js/jquery.cookie.js"></script>
+		<script src="/static/js/jquery.idcode.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/css/jquery.idcode.css"/>
+		<script type="text/javascript">
+		   $(function(){
+		   	//同步购物车商品数量
+		   	var b=$.cookie("cart")?JSON.parse($.cookie("cart")):[];
+             $(".num_first").html(b.length);
+
+		   	$("#nav_feiLei").mouseenter(function(){
+		   		$(".sideNav").show();
+		   		var navLit=$(".navList");
+
+			navLit.mouseenter(function(){
+				$(this).find("ul").show().parent().siblings().find("ul").hide();
+               $(this).find("h3 a").removeClass().addClass("change").parent().parent().siblings().find("h3 a").removeClass("change")
+			   $(this).find("h3").addClass("fuck").parent().siblings().find("h3").removeClass("fuck");
+			});
+
+			navLit.mouseleave(function(){
+				$(this).find("ul").hide();
+				$(this).find("h3 a").removeClass("change");
+				$(this).find("h3").removeClass("fuck");
+
+			})
+		   	})
+		   	$(".sideNav").mouseleave(function(){
+		   		$(".sideNav").hide();
+		   	})
+		   })
+
+
+
+
+		   //注册
+			$(function() {
+				var email=$("#email");
+				var emailTip=$("#emailTip");
+				var username=$("#username");
+				var usernameTip=$("#usernameTip");
+				var pwd1=$("#pwd1");
+				var pwd1Tip=$("#pwd1Tip");
+				var pwd2=$("#pwd2");
+				var pwd2Tip=$("#pwd2Tip");
+				var ok1=false;
+				var ok2=false;
+				var ok3=false;
+				var ok4=false;
+                var ok5=false;
+
+		 		var users=$.cookie("users")?JSON.parse($.cookie("users")):[];
+
+		 	   //输入邮箱
+				email.on({"focus":function(){
+					emailTip.html("填写正确的邮箱");
+					$(this).css("border-color","orange");
+				},"blur":function(){
+					$(this).css("border-color","");
+					if(email.val()==""){
+						emailTip.html("邮箱不正确");
+					}
+					if(email.val()!=""){
+						var reg=/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+						if(reg.test(email.val())){
+						emailTip.html("填写对了");
+						ok1=true;
+						}else{
+						emailTip.html("邮箱格式不正确");
+
+						}
+						for(var i=0;i<users.length;i++){
+		 			   if(users[i].email==$("#email").val()){
+		 				emailTip.html("邮箱已注册");
+		 				return;
+		 			}
+		 			  }
+
+
+					}
+				}})
+				//输入用户名
+				username.on({"focus":function(){
+					usernameTip.html("4-20英文字符,数字,'_'的组合.");
+					$(this).css("border-color","orange");
+				},"blur":function(){
+					$(this).css("border-color","");
+					if(username.val()==""){
+						usernameTip.html("你输入的用户名不正确");
+					}
+					if(username.val()!=""){
+						var reg=/^[a-zA-Z]\w{4,20}$/;
+						if(reg.test(username.val())){
+						usernameTip.html("用户名可以注册");
+						ok2=true;
+						}else{
+						usernameTip.html("你输入的用户名格式不正确");
+					}
+					for(var i=0;i<users.length;i++){
+		 			   if(users[i].name==$("#username").val()){
+		 				usernameTip.html("用户名已注册");
+		 				return;
+		 			}
+		 			  }
+					}
+
+				}})
+				//输入密码
+
+				pwd1.on({"focus":function(){
+					pwd1Tip.html("6-16位字符");
+					$(this).css("border-color","orange");
+				},"blur":function(){
+					$(this).css("border-color","");
+					if(pwd1.val()==""){
+						pwd1Tip.html("密码不合法，请确认");
+					}
+					if(pwd1.val()!=""){
+						var reg=/^[a-zA-Z]\w{6,16}$/;
+						if(reg.test(pwd1.val())){
+						pwd1Tip.html("密码合法");
+						ok3=true;
+						}else{
+						pwd1Tip.html("密码不合法");
+						}
+					}
+
+				}})
+				//重复密码
+				pwd2.on({"focus":function(){
+					pwd2Tip.html("两次密码必须一致");
+					$(this).css("border-color","orange");
+				},"blur":function(){
+					$(this).css("border-color","");
+					if(pwd2.val()==""){
+						pwd2Tip.html("密码不合法，请确认");
+					}
+					if(pwd1.val()==pwd2.val()){
+						pwd2Tip.html("密码一致");
+						ok4=true;
+					}else{
+						pwd2Tip.html("密码不一致");
+					}
+
+				}})
+                 $("#Txtidcode").on({"focus":function(){
+                 	$(this).css("border-color","orange");
+                 },"blur":function(){
+                 	$(this).css("border-color","");
+                 }})
+				//验证码
+				$.idcode.setCode();
+				$("#lognUp").click(function(){
+					var isby=$.idcode.validateCode();
+					if(isby){
+						console.log("验证码输入正确");
+						ok5=true;
+					}else{
+						alert("验证码输入错误")
+					}
+
+
+//		 		console.log($.cookie("users"))
+
+					if(ok1&&ok2&&ok3&&ok4&&ok5){
+					var user={
+		 			email:$("#email").val(),
+		 			name:$("#username").val(),
+		 			pwd:$("#pwd1").val()
+		 		    };
+		 		    users.push(user);
+					$.cookie("users",JSON.stringify(users),{expires:20,path:"/"});
+					alert("注册成功！");
+					}else{
+						return false;
+					}
+
+
+				})
+        })
+
+        //登录
+        $(function() {
+            var name = $("#user");
+            var pwd = $("#pwd");
+            name.on({
+                "focus": function () {
+                    $(this).css("border-color", "orange");
+                }, "blur": function () {
+                    $(this).css("border-color", "");
+                }
+            })
+            pwd.on({
+                "focus": function () {
+                    $(this).css("border-color", "orange");
+                }, "blur": function () {
+                    $(this).css("border-color", "");
+                }
+            })
+            {#$("#login").click(function () {#}
+            {#    var username = $.cookie("users");#}
+            {#    if (username) {#}
+            {#        users = JSON.parse(username);#}
+            {#        var isExit = false;#}
+            {#        for (var i = 0; i < users.length; i++) {#}
+            {#            if (users[i].name == name.val() && users[i].pwd == pwd.val()) {#}
+            {#                alert("登陆成功")#}
+            {#                location.href = "天狗商城.html";#}
+            {#                isExit = true;#}
+            {#                $.cookie("loginUser", users[i].name, {expires: 20, path: "/"})#}
+            {#            }#}
+            {#        }#}
+            {#        if (!isExit) {#}
+            {#            alert("用户名和密码不一致，请重新输入");#}
+            {#        }#}
+            {#    } else {#}
+            {#        alert("不存在该用户，请先注册");#}
+            {#    }#}
+        })
+		</script>
+	</head>
+	<body>
+
+		<!--顶部开始-->
+		<div id="header_top">
+			<div id="header">
+
+			<p id="p">您好：欢迎光临天狗商城！[<a href="注册.html">请登录</a>]，新用户？[<a href="注册.html">免费注册</a>]</p>
+
+			 <div id="header_list">
+			 	<p id="p2">购物车<span style="color: red;" class="num_first">0</span>件</p>
+			 	<span><a href="#">我的订单</a></span>|
+			 	<span><a href="#">网站地图</a></span>|
+			 	<span><a href="#">帮助中心</a></span>|
+			 	<span><a href="#">加入收藏</a></span>|
+			 	<span><a href="#">设为首页</a></span>
+			 </div>
+			 </div>
+			</div>
+			<!--顶部结束-->
+		<!--logo开始-->
+		 <div id="logo">
+		 	<div id="logo_tu">
+		 		<a href=" 天狗商城.html" style="display:block;width:270px;height: 70px;"><img src="/static/img/p201401211350199562.jpg" /></a>
+		 	</div>
+		 	<div id="search">
+		 		<div id="search_txt">
+		 			<span>商品</span>
+		 			<div id="search_con">
+		 				<input type="text" name="" id="txt" value="多搜搜，意外惊喜等你拿" />
+		 			</div>
+		 			<p><a href="#">手机</a>/
+		 			   <a href="#">钟表</a>/
+		 			   <a href="#">家电</a>/
+		 			   <a href="#">电脑</a>/
+		 			   <a href="#">男装</a>/
+		 			   <a href="#">女装</a>/
+		 			   <a href="#">灯具</a>/
+		 			   <a href="#">童装</a>/
+		 			   <a href="#">儿童玩具</a>/
+		 			   <a href="#">笔记本</a>/
+		 			   <a href="#">平板</a>/
+		 			   <a href="#">相机</a>/
+		 			   <a href="#">鞋</a>/
+		 			</p>
+		 		</div>
+		 		<div id="search_suo">
+		 			<input type="button" id="btn" value="搜索"/>
+		 		</div>
+		 	</div>
+		 </div>
+		<!--logo结束-->
+
+
+		<!--导航栏1开始-->
+		   <div id="nav">
+		   	<div id="nav_feiLei">
+		   		<a href="#">所有商品分类</a>
+		   	</div>
+		   	<ul id="nav_list">
+		   		<li><a href="{% url 'contents:index' %}">首页</a></li>
+		   		<li><a href="#">手机数码</a></li>
+		   		<li><a href="#">礼品箱包</a></li>
+		   		<li><a href="#">厨具用品</a></li>
+		   		<li><a href="#">电脑办公</a></li>
+		   		<li><a href="#">服饰鞋帽</a></li>
+		   		<li><a href="#">个护化妆</a></li>
+		   		<li><a href="#">母婴用品</a></li>
+		   	</ul>
+		   	<div id="nav_con">
+		   		<dl>
+		   			<dd>
+		   				<div class="hot"></div>
+		   				<a href="#">分销</a>
+		   			</dd>
+		   			<dd>
+		   				<div class="new"></div>
+		   				<a href="#">导航</a>
+		   			</dd>
+		   			<dd>
+		   				<div class="diy"></div>
+		   				<a href="#">团购</a>
+		   			</dd>
+		   			<dd>
+		   				<div class="go"></div>
+		   				<a href="#">充值</a>
+		   			</dd>
+		   		</dl>
+		   	</div>
+		   </div>
+		<!--导航栏1结束-->
+
+		<!--导航栏2开始-->
+		<div id="nav2">
+			<div id="nav2_sd"></div>
+			<div class="sideNav">
+				<div class="navList">
+					<h3 class="icon_11"><a href="#">家用电器</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">大家电</a></dt>
+								<dd>
+									<a href="#">平板电视</a>|
+									<a href="#">空调</a>|
+									<a href="#">冰箱</a>|
+									<a href="#">洗衣机</a>|
+									<a href="#">家庭影院</a>|
+									<a href="#">DVD播放机</a>|
+									<a href="#">迷你音响</a>|
+									<a href="#">烟机/灶具</a>|
+									<a href="#">热水器</a>|
+									<a href="#">消毒柜/洗碗机</a>|
+									<a href="#">酒柜/冰吧/冷柜</a>|
+									<a href="#">家电配件</a>|
+									<a href="#">家电下乡</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">生活电器</a></dt>
+								<dd>
+									<a href="#">取暖电器</a>|
+									<a href="#">净化器</a>|
+									<a href="#">加湿器</a>|
+									<a href="#">吸尘器</a>|
+									<a href="#">净水设备</a>|
+									<a href="#">饮水机</a>|
+									<a href="#">挂烫机/熨斗</a>|
+									<a href="#">电话机</a>|
+									<a href="#">插座</a>|
+									<a href="#">收录/音机</a>|
+									<a href="#">除湿/干衣机</a>|
+									<a href="#">清洁机</a>|
+									<a href="#">电风扇</a>|
+									<a href="#">冷风扇</a>|
+									<a href="#">其它生活电器</a>|
+
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">厨房电器</a></dt>
+								<dd>
+									<a href="#">料理/榨汁机</a>|
+									<a href="#">豆浆机</a>|
+									<a href="#">电饭煲</a>|
+									<a href="#">电压力锅</a>|
+									<a href="#">面包机</a>|
+									<a href="#">咖啡机</a>|
+									<a href="#">微波炉</a>|
+									<a href="#">电烤箱</a>|
+									<a href="#">电磁炉</a>|
+									<a href="#">电饼档/烧烤箱</a>|
+									<a href="#">煮蛋器</a>|
+									<a href="#">酸奶机</a>|
+									<a href="#">电炖锅</a>|
+									<a href="#">电水壶/热水瓶</a>|
+									<a href="#">多用途锅</a>|
+									<a href="#">果蔬解毒机</a>|
+									<a href="#">其它厨房电器</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">个护健康</a></dt>
+								<dd>
+									<a href="#">剃须刀</a>|
+									<a href="#">剃/脱毛器</a>|
+									<a href="#">口腔护理</a>|
+									<a href="#">电吹风</a>|
+									<a href="#">美容器</a>|
+									<a href="#">按摩椅</a>|
+									<a href="#">按摩器</a>|
+									<a href="#">足浴盆</a>|
+									<a href="#">血压计</a>|
+									<a href="#">健康秤/厨房秤</a>|
+									<a href="#">血糖仪</a>|
+									<a href="#">体温计</a>|
+									<a href="#">计步器/脂肪检测仪</a>|
+									<a href="#">其它健康电器</a>|
+
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">五金家装</a></dt>
+								<dd>
+									<a href="#">电动工具</a>|
+									<a href="#">手动工具</a>|
+									<a href="#">仪器仪表</a>|
+									<a href="#">浴霸/排气扇</a>|
+									<a href="#">灯具</a>|
+									<a href="#">LED灯</a>|
+									<a href="#">洁身器</a>|
+									<a href="#">水槽</a>|
+									<a href="#">龙头</a>|
+									<a href="#">淋浴花洒</a>|
+									<a href="#">厨卫五金</a>|
+									<a href="#">家具五金</a>|
+									<a href="#">门铃</a>|
+									<a href="#">电气开关</a>|
+									<a href="#">插座</a>|
+									<a href="#">电工电料</a>|
+									<a href="#">监控安防</a>|
+									<a href="#">电线/线缆</a>|
+
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_07"><a href="#">珠宝首饰</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">七匹狼</a></dt>
+								<dt><a href="#">耐克</a></dt>
+								<dt><a href="#">亲贝</a></dt>
+								<dt><a href="#">龙之昱</a></dt>
+								<dt><a href="#">亲亲宝贝</a></dt>
+								<dt><a href="#"></a></dt>
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_08"><a href="#">时尚钟表</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_09"><a href="#">运动健康</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_16"><a href="#">图像音像</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_05"><a href="#">家居家装</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_06"><a href="#">厨具用品</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_10"><a href="#">电脑办公</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_01"><a href="#">服饰鞋帽</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_02"><a href="#">个护化妆</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_12"><a href="#">汽车用品</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_14"><a href="#">玩具乐器</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+				<div class="navList">
+					<h3 class="icon_15"><a href="#">食品保健</a></h3>
+					<ul>
+						<div id="ul_left">
+							<h4>选择分类</h4>
+							<dl>
+								<dt><a href="#">时尚饰品</a></dt>
+								<dd>
+									<a href="#">项链</a>|
+									<a href="#">手脚脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">头饰</a>|
+									<a href="#">胸针</a>|
+									<a href="#">婚庆饰品</a>|
+									<a href="#">饰品配件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">纯金K金</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">金银投资</a></dt>
+								<dd>
+									<a href="#">工艺金</a>|
+									<a href="#">工艺银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">银饰</a></dt>
+								<dd>
+									<a href="#">吊坠/项链</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指/耳饰</a>|
+									<a href="#">宝宝金银</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">翡翠玉石</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">手镯/手串</a>|
+									<a href="#">戒指</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">挂件/摆件/把件</a>|
+									<a href="#">高值收藏</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">水晶玛瑙</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯/手链/脚链</a>|
+									<a href="#">戒指</a>|
+									<a href="#">头饰/胸针</a>|
+									<a href="#">摆件/挂件</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">宝石珍珠</a></dt>
+								<dd>
+									<a href="#">项链/吊坠</a>|
+									<a href="#">耳饰</a>|
+									<a href="#">手镯</a>|
+									<a href="#">手链</a>|
+									<a href="#">戒指</a>|
+								</dd>
+							</dl>
+							<dl>
+								<dt><a href="#">婚庆</a></dt>
+								<dd>
+									<a href="#">婚嫁首饰</a>|
+									<a href="#">婚纱摄影</a>|
+									<a href="#">婚纱礼服</a>|
+									<a href="#">婚庆用品/礼品</a>|
+									<a href="#">婚宴</a>|
+								</dd>
+							</dl>
+						</div>
+						<div id="ul_right">
+							<h2>热门品牌</h2>
+							<dl>
+								<dt><a href="#">西门子</a></dt>
+								<dt><a href="#">海尔</a></dt>
+								<dt><a href="#">松下</a></dt>
+								<dt><a href="#">飞利浦</a></dt>
+								<dt><a href="#">小霸王</a></dt>
+								<dt><a href="#">创维</a></dt>
+
+							</dl>
+							<h2>促销活动：</h2>
+						</div>
+					</ul>
+				</div>
+
+			</div>
+
+
+
+			<div id="nav2_reg">
+				<h1>新用户 ，请注册<b>（仅需30秒）</b></h1>
+				<dl>
+					<dd>
+						<span>Email:</span>
+						<input name="email" type="text" id="email"/>
+						<strong id="emailTip" class="onshow">请输入邮箱</strong>
+					</dd>
+					<dd>
+						<span>用户名:</span>
+						<input name="username" type="text" id="username"/>
+						<strong id="usernameTip" class="onshow">4-20英文字符,数字,'_'的组合.</strong>
+					</dd>
+					<dd>
+						<span>密码:</span>
+						<input name="pwd1" type="password" id="pwd1"/>
+						<strong id="pwd1Tip" class="onshow">请输入密码</strong>
+					</dd>
+					<dd>
+						<span>确认密码:</span>
+						<input name="pwd2" type="password" id="pwd2"/>
+						<strong id="pwd2Tip" class="onshow">请输入重复密码</strong>
+					</dd>
+					<dd>
+						<span>验证码：</span>
+						<input type="text" id="Txtidcode"  class="txtVerification" style="width: 110px;"/>
+					    <span id="idcode"></span>
+					</dd>
+					<dt>
+                        <input name="lognUp" type="submit" id="lognUp" value="" style="width: 106px;height: 30px;cursor: pointer;background: url(/static/img/regbgs.gif);"/>
+					</dt>
+				</dl>
+			</div>
+			<div id="nav2_login">
+				<h1>老用户，请登录</h1>
+				<dl>
+					<dd>
+						<span>用户名：</span>
+						<input name="username" type="text" id="user">
+
+					</dd>
+					<dd>
+						 <span>密码：</span><input name="password" type="password" id="pwd">
+					</dd>
+					<dt>
+						<input name="login"  id="login" type="submit" value="" style="width: 106px;height: 30px;cursor: pointer;background: url(/static/img/loginsub.gif) no-repeat;"/>
+					</dt>
+				</dl>
+			</div>
+			</div>
+
+
+
+
+
+
+
+			<!--footerbg开始-->
+		  <div id="footerbg">
+		  	<div id="friendlik">
+		  		<strong>友情链接：</strong>
+		  		<a href="#">天狗网商城</a>
+		  		<a href="#">介休市弘盛昌家具建材装饰城</a>
+		  		<a href="#">介休鸿宪居装饰公司</a>
+		  		<a href="#">介休家具建材网</a>
+		  		<a href="#">天狗网络科技有限公司</a>
+		  		<a href="#">天狗网络科技自助建站系统</a>
+		  		<a href="#">天狗网上商城</a>
+		  		<a href="#">涛涛三味火锅餐饮有限公司</a>
+		  	</div>
+		  	<div id="con">
+		  		<div id="con_left">
+		  			<ul>
+		  				<li>
+		  					<img src="/static/img/tel.jpg" />
+		  					"客服服务热线"
+		  					<div id="pong">
+		  						03547357121  13383445351
+		  						<br />
+		  						<a href="#"><img src="/static/img/T1FXHXXahjXXXAK3zo-77-18.gif"></a>
+		  					</div>
+		  					<span>(7*24小时服务)</span>
+		  				</li>
+		  				<li>
+		  					<a href="#"><img src="/static/img/button_111.gif"></a>
+		  				</li>
+		  			</ul>
+		  		</div>
+		  		<div id="con_right">
+		  			<span id="boottom_help">
+
+		  				<ul>
+		  					<li>
+		  						<img src="/static/img/gu0.jpg">
+		  						<h3>关于我们</h3>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">货源提供</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">联系客服</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">商城简介</a>
+		  					</li>
+		  				</ul>
+		  				<ul>
+		  					<li>
+		  						<img src="/static/img/gu1.jpg">
+		  						<h3>售后服务</h3>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">产品退换</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">订单查询</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">收货说明</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">在线旺旺客服</a>
+		  					</li>
+		  				</ul>
+		  				<ul>
+		  					<li>
+		  						<img src="/static/img/gu2.jpg">
+		  						<h3>支付宝</h3>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">支付宝</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">货到付款</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">银行付款</a>
+		  					</li>
+		  				</ul>
+		  				<ul>
+		  					<li>
+		  						<img src="/static/img/gu3.jpg">
+		  						<h3>购物指南</h3>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">购物流程</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">常见问题</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">会员注册</a>
+		  					</li>
+		  				</ul>
+		  				<ul>
+		  					<li>
+		  						<img src="/static/img/gu4.jpg">
+		  						<h3>配送方式</h3>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">运费标准</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">配送政策</a>
+		  					</li>
+		  					<li class="mar">
+		  						<a href="#">订单说明</a>
+		  					</li>
+		  				</ul>
+		  			</span>
+		  			<ul>
+		  			<li   style="width: 140px;float: left;">
+		  				<img src="/static/img/wx.jpg">
+		  				<h3><a href="#">手机扫二维码登录</a></h3>
+		  			</li>
+		  			<li style="float: right;">
+		  				<a href="#"><img ></a>
+		  			</li>
+		  		</ul>
+		  		</div>
+
+		  	</div>
+		  </div>
+		<!--footerbg结束-->
+		<div id="footer">
+			天狗网络科技有限公司版权所有<br/> 站长统计
+
+		</div>
+
+	</body>
+
+    <script>
+        $(function () {
+            $('#lognUp').click(function () {
+                var email = $('#email').val()
+                var username = $('#username').val()
+                var pwd1 = $('#pwd1').val()
+                var pwd2 = $('#pwd2').val()
+                var Txtidcode = $('#Txtidcode').val()
+                var idcode = $('#idcode').html()
+                {#console.log(idcode)#}
+                var data = {'email':email, 'username':username, 'pwd1':pwd1, 'pwd2':pwd2, 'Txtidcode':Txtidcode, 'idcode': idcode}
+                $.ajax({
+                    url: "{% url 'users:index' %}",
+                    type: 'post',
+                    data: data,
+                    dataType: 'json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    success: function (data) {
+                        if (data.data == 'ok') {
+                            location.href = '{% url "users:index" %}'
+
+                        }
+                    }
+                })
+            })
+            $('#login').click(function () {
+                var username = $('#user').val()
+                var password = $('#pwd').val()
+                var data = {'username': username, 'password': password}
+                $.ajax({
+                    url: '{% url "users:login" %}',
+                    type: 'post',
+                    data: data,
+                    dataType: 'json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    success:function (data) {
+                        if (data.data == 'ok') {
+                            location.href = '{% url "contents:index" %}'
+                        }
+                    }
+
+                })
+            })
+
+
+        })
+
+
+    </script>
+</html>

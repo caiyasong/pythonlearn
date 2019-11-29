@@ -1,0 +1,38 @@
+[
+  {
+     "id":1,
+     "img":"/static/img/midP20160313145249235.jpg",
+     "content":"三星S6 9208 金，金属边框&玻璃机身，0.7秒快速启动...",
+     "sore":"抢购价格:",
+     "price":"￥3735",
+     "miao":"秒杀已结束",
+     "mark":"元"
+  },
+   {
+     "id":2,
+     "img":"/static/img/midP20160313153110796.jpg",
+     "content":"【联通4G】魅蓝 metal 16G灰色  超值套装，5.5英寸送...",
+     "sore":"抢购价格:",
+     "price":"￥1099",
+     "miao":"秒杀已结束",
+     "mark":"元"
+  },
+   {
+     "id":3,
+     "img":"/static/img/midP20160312150857107.jpg",
+     "content":"Apple iPhone 6 Plus(A1524) 16GB金色  移动联通电...",
+     "sore":"抢购价格:",
+     "price":"￥4888",
+     "miao":"秒杀已结束",
+     "mark":"元"
+  },
+   {
+     "id":4,
+     "img":"/static/img/midP20160312144947839.jpg",
+     "content":"Apple iPhone 6s Plus (A1699)64G银色  移动联通电...",
+     "sore":"抢购价格:",
+     "price":"￥6288",
+     "miao":"秒杀已结束",
+     "mark":"元"
+  }
+]
